@@ -1,0 +1,7 @@
+Here are you current marks:
+%br
+%br
+-@message[:user].marks.each do |mark|
+	%h3="#{mark.assignment.name}: #{mark.value} out of #{mark.assignment.total_marks} - worth #{mark.assignment.weight}%"
+	.comment="#{mark.comments}"
+	%br

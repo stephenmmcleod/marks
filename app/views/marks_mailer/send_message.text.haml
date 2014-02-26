@@ -1,0 +1,7 @@
+="Your current marks are as follows."
+= "\r\n"
+
+-@message[:user].marks.each do |mark|
+    ="#{mark.assignment.name}: #{mark.value} out of #{mark.assignment.total_marks} - worth #{mark.assignment.weight}% \n"
+    ="Comments: #{mark.comments}"
+    = "\r\n"

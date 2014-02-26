@@ -1,0 +1,14 @@
+https://github.com/gregbell/active_admin/issues/221
+http://engineering.coachup.com/activeadmin-cheat-sheet/
+https://github.com/gregbell/active_admin/issues/376
+https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md
+https://github.com/gregbell/active_admin/commits/master
+https://github.com/drapergem/draper
+
+https://github.com/gregbell/active_admin/wiki/How-to-add-User-Accounts-for-users-to-administer-their-personal-accounts
+
+
+
+
+TODO: one model for users
+http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise/

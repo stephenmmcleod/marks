@@ -1,0 +1,7 @@
+== Marks
+
+This is a simple app that lets teachers communicate marks with their students.
+
+* currently supports ruby 2.1.0, rails 4  (though others will likely work)
+
+some more to come...
