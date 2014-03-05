@@ -90,13 +90,17 @@ ActiveAdmin.register User do
 
 
 
-  show do
+  show do |user|
     attributes_table do
       row :id
       row :group
       row :first_name
       row :last_name
       row :email
+      row :comments do
+        #TODO: get autolink working
+        auto_link(simple_format user.comments)
+      end
     end
     panel "Marks" do
       table_for user.marks do
@@ -125,6 +129,7 @@ ActiveAdmin.register User do
       f.input :first_name
       f.input :last_name
       f.input :email
+      f.input :comments, :as => "text"
     end
     #TODO: make the editable
     f.has_many :marks, :allow_destroy => true, :heading => 'Marks', :new_record => false do |mark|

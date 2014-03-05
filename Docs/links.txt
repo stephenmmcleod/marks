@@ -12,3 +12,8 @@ https://github.com/gregbell/active_admin/wiki/How-to-add-User-Accounts-for-users
 
 TODO: one model for users
 http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise/
+
+
+
+active admin reading
+http://staal.io/blog/2013/02/26/mastering-activeadmin/

@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20140226092143) do
 
   create_table "users", force: true do |t|
     t.integer "group_id"
-    t.string  "role"
+    t.text    "comments"
     t.string  "first_name"
     t.string  "last_name"
     t.string  "email"
