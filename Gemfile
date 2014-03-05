@@ -26,7 +26,7 @@ end
 gem 'unicorn'
 gem 'capistrano', group: :development
 gem 'debugger', group: [:development, :test]
-gem 'figaro', group: [:development, :test]
+gem 'figaro'
 gem 'rails_12factor', group: :production
 
 gem 'rails_autolink'
