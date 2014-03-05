@@ -91,8 +91,7 @@ ActiveAdmin.register User do
       row :last_name
       row :email
       row :comments do
-        #TODO: get autolink working
-        auto_link(simple_format user.comments)
+        linku("http://www.google.com")
       end
     end
     panel "Marks" do
