@@ -64,16 +64,9 @@ ActiveAdmin.register User do
     link_to 'Email Marks', :action => 'email_marks', :params => Hash[:user => user.id]
   end
   collection_action :email_marks do
-    user = User.find(params[:user])
-    @message = {
-      :email => user.email,
-      :name => user.name,
-      :subject => "Here are your marks thus far.",
-      :user => user
-    }
-
-    MarksMailer.send_message(@message).deliver
-    redirect_to admin_group_user_path(user.group, user.id), :notice => "The marks have entered the tubes!"
+    @user = User.find(params[:user])
+    MarksMailer.send_message(@user, "Here are your marks thus far.").deliver
+    redirect_to admin_group_user_path(@user.group, @user.id), :notice => "The marks have entered the tubes!"
   end
 
 
@@ -90,7 +83,7 @@ ActiveAdmin.register User do
 
 
 
-  show do |user|
+  show do |user|    
     attributes_table do
       row :id
       row :group
