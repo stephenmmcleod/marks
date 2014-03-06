@@ -126,6 +126,11 @@ ActiveAdmin.register User do
       mark.input :description 
       mark.input :comments 
       mark.input :value 
+      # mark.inputs :mark do |asd|
+      #   raise asd.inspect
+      #   link_to("Edit", edit_admin_group_user_mark_path(user.group_id, user.id, ))
+        
+      # end
     end
 
     f.actions

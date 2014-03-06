@@ -29,7 +29,9 @@ ActiveAdmin.register Mark do
     id_column
     column :value
     column :description
-    column :comments
+    column :comments do |comment|
+      truncate(comment.comments, omision: "...", length: 100)
+    end
     default_actions
   end
 
@@ -55,7 +57,9 @@ ActiveAdmin.register Mark do
       row :id
       row :group
       row :value
-      row :description
+      row :description do |mark|
+        linku(mark.description)
+      end
       row :comments
     end
   end
