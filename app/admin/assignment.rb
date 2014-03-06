@@ -7,6 +7,50 @@ ActiveAdmin.register Assignment do
     link_to 'New Assignment', :action => 'new'
   end
 
+  action_item :only => :index do
+    link_to 'Create User Marks', :action => 'create_user_marks', :params => Hash[:group => assignments.first.group_id]
+  end
+
+  batch_action :create_user_marks do |ids|
+    assignments = Assignment.find(ids)
+    group = assignments.first.group_id
+    users = User.all.of_group(group)
+    assignments.each do |assignment|
+      users.each do |user|
+        mark = Mark.new(
+          user_id: user.id,
+          group_id: user.group_id,
+          assignment_id: assignment.id,
+          value: assignment.total_marks,
+          description: assignment.name,
+          comments: "",
+        )
+        mark.save!
+      end
+    end
+    redirect_to admin_group_assignments_path(group), :notice => "The marks have been created!"
+  end
+
+  collection_action :create_user_marks do
+    assignments = Assignment.all
+    users = User.all.of_group(group)
+
+    assignments.each do |assignment|
+      users.each do |user|
+        mark = Mark.new(
+          user_id: user.id,
+          group_id: user.group_id,
+          assignment_id: assignment.id,
+          value: assignment.total_marks,
+          description: assignment.name,
+          comments: "",
+        )
+        mark.save!
+      end
+    end
+    redirect_to admin_group_assignments_path(group), :notice => "The marks have been created!"
+  end
+
   show do
     attributes_table do
       row :id

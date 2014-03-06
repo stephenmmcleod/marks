@@ -58,11 +58,20 @@ ActiveAdmin.register User do
 
 
   # EDIT/SHOW
+  
+  sidebar "User Tools", only: [:show, :edit] do
+    ul :as => "Marks" do
+      li link_to 'View Marks', admin_group_user_marks_path(user.group, user)
+      li link_to 'Add Mark', new_admin_group_user_mark_path(user.group, user)
+      li link_to 'Email Marks', :action => 'email_marks', :params => Hash[:user => user.id]
+    end
 
-
-  action_item :only => [:edit, :show] do
-    link_to 'Email Marks', :action => 'email_marks', :params => Hash[:user => user.id]
+    ul :as => "user_nav" do
+      li link_to 'Next User', edit_admin_group_user_path(user.group, (user.next || User.of_group(mark.user.group).first))
+      li link_to 'Previous User', edit_admin_group_user_path(user.group, (user.previous || User.of_group(mark.user.group).last))
+    end
   end
+
   collection_action :email_marks do
     @user = User.find(params[:user])
     MarksMailer.send_message(@user, "Here are your marks thus far.").deliver
@@ -70,18 +79,7 @@ ActiveAdmin.register User do
   end
 
 
-  action_item :only => [:edit, :show] do
-    link_to 'Marks', admin_group_user_marks_path(user.group, user)
-  end
-  action_item :only => [:edit, :show] do
-    link_to 'Add Mark', new_admin_group_user_mark_path(user.group, user)
-  end
-
-
   
-
-
-
 
   show do |user|    
     attributes_table do
@@ -91,7 +89,7 @@ ActiveAdmin.register User do
       row :last_name
       row :email
       row :comments do
-        linku("http://www.google.com")
+        simple_format(linku(user.comments))
       end
     end
     panel "Marks" do

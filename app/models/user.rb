@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+	scope :next, lambda {|id| where("id > ?",id).order("id ASC") }
+    scope :previous, lambda {|id| where("id < ?",id).order("id DESC") }
+    scope :of_group, lambda {|group_id| where("group_id = ?",group_id).order("id DESC") }
+
 	belongs_to :group
 	has_many :marks, dependent: :destroy
 	accepts_nested_attributes_for :marks
@@ -18,4 +22,12 @@ class User < ActiveRecord::Base
  		total
  	end
 
+
+    def next
+      User.next(self.id).of_group(self.group_id).first
+    end
+
+    def previous
+      User.previous(self.id).of_group(self.group_id).first
+    end
 end
