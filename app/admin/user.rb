@@ -104,7 +104,7 @@ ActiveAdmin.register User do
           mark.assignment.total_marks
         end
         column "percentage" do |mark|
-          text_node (mark.value.to_f/mark.assignment.total_marks.to_f * 100).round(2)
+          text_node mark.percent
         end
       end
     end

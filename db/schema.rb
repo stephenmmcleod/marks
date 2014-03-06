@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140226092143) do
+ActiveRecord::Schema.define(version: 20140306201938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20140226092143) do
     t.string  "name"
     t.integer "total_marks"
     t.integer "weight"
+    t.date    "due_date"
   end
 
   add_index "assignments", ["group_id"], name: "index_assignments_on_group_id", using: :btree
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 20140226092143) do
     t.integer "value"
     t.string  "description"
     t.text    "comments"
+    t.date    "submit_date"
   end
 
   add_index "marks", ["assignment_id"], name: "index_marks_on_assignment_id", using: :btree
