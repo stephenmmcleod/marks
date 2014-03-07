@@ -8,20 +8,24 @@ ActiveAdmin.register Mark do
     nested_belongs_to :group, :user
   end
 
-  action_item do
-    link_to user.name, ""
-  end
+
 
   action_item :only => :show do
     link_to 'New Mark', :action => 'new'
   end
 
   action_item do
-    link_to 'Previous User', admin_group_user_marks_path(user.group, (user.previous || User.of_group(user.group).last))
+    span :style => "margin: 0 20px;" do
+      user.name + " " + user.grade.to_s
+    end
   end
 
   action_item do
-    link_to 'Next User', admin_group_user_marks_path(user.group, (user.next || User.first))
+    link_to 'Previous User', admin_group_user_marks_path(user.group, (user.previous || User.of_group(user.group).first))
+  end
+
+  action_item do
+    link_to 'Next User', admin_group_user_marks_path(user.group, (user.next || User.of_group(user.group).last))
   end
 
   batch_action :set_date, form: {
@@ -40,7 +44,9 @@ ActiveAdmin.register Mark do
     selectable_column
     id_column
     column :value
-    column :description
+    column :description do |mark|
+      linku(mark.description)
+    end
     column :lateness do |mark|
       mark.lateness.to_s + "%"
     end

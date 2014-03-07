@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 	scope :next, lambda {|id| where("id > ?",id).order("id ASC") }
-    scope :previous, lambda {|id| where("id < ?",id).order("id DESC") }
-    scope :of_group, lambda {|group_id| where("group_id = ?",group_id).order("id DESC") }
+  scope :previous, lambda {|id| where("id < ?",id).order("id DESC") }
+  scope :of_group, lambda {|group_id| where("group_id = ?",group_id).order("id DESC") }
 
 	belongs_to :group
 	has_many :marks, dependent: :destroy
@@ -14,20 +14,26 @@ class User < ActiveRecord::Base
  	end
 
  	def grade
- 		total = 0
+ 		total_marks = 0
+    current_marks = 0
  		marks = self.marks
- 		marks.each do |mark|
- 			total += mark.assignemnt.percent(mark.value.to_i)
+ 		marks.each_with_index do |mark, i|
+ 			current_marks += mark.weighted_mark
+      total_marks += mark.assignment.total_marks
  		end
- 		total
+ 		((current_marks/total_marks) * 100).round(2)
  	end
 
+  def total
+    
+  end
 
-    def next
-      User.next(self.id).of_group(self.group_id).first
-    end
 
-    def previous
-      User.previous(self.id).of_group(self.group_id).first
-    end
+  def next
+    User.next(self.id).of_group(self.group_id).first
+  end
+
+  def previous
+    User.previous(self.id).of_group(self.group_id).first
+  end
 end
