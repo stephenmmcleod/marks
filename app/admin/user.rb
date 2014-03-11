@@ -44,15 +44,15 @@ ActiveAdmin.register User do
   end
   
   # TODO: add multi email later
-  # batch_action :email_selected, form: {
-  #   message: :text
-  # } do |ids, inputs|
-  #   User.find(ids).each do |user|
-  #     user.group_id = inputs["group"]
-  #     user.save!
-  #   end
-  #   redirect_to :action => :index, :notice => "Group id updated!"
-  # end
+  batch_action :email_selected, form: {
+    subject: :text,
+    message: :textarea
+  } do |ids, inputs|
+    User.find(ids).each do |user|
+      MarksMailer.send_message(user, inputs[:subject], inputs[:message]).deliver
+    end
+    redirect_to :action => :index, :notice => "Email sent!"
+  end
 
 
 
